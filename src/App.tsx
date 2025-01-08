@@ -15,7 +15,9 @@ function App() {
 
   const [WarningMSG, SetWarningMSG] = useState<string>("");
   const [SearchName, SetSearchName] = useState<string>("");
-  const [SearchedProduct, SetSearchedProduct] = useState<ProductType>();
+  const [SearchedProduct, SetSearchedProduct] = useState<
+    ProductType | undefined
+  >();
 
   useEffect(() => {
     ReadData();
@@ -28,16 +30,17 @@ function App() {
   function SearchByName() {
     if (Products.length == 0) {
       SetWarningMSG("No products found");
-    } 
-    else {
+    } else {
       Products.forEach((element) => {
         if (element.name.toLowerCase().startsWith(SearchName.toLowerCase())) {
-         SetSearchedProduct(element)
-         console.log("searched")
-         return
+          SetWarningMSG("");
+          SetSearchedProduct(element);
+          console.log("searched");
+          return;
         }
       });
     }
+    SetWarningMSG("No product found with the given name.");
   }
 
   async function ReadData() {
@@ -48,10 +51,14 @@ function App() {
 
   return (
     <div>
-      <input className="search-section" type="text" onChange={ChangeSearchName} />
+      <input
+        className="search-section"
+        type="text"
+        onChange={ChangeSearchName}
+      />
       <button onClick={SearchByName}>Search</button>
       <h1>Product Information</h1>
-      <ProductCard {...SearchedProduct} ></ProductCard>
+      <ProductCard product={SearchedProduct}></ProductCard>
       <p className="error">{WarningMSG}</p>
     </div>
   );

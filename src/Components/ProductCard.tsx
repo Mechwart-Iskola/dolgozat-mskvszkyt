@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
-import { ProductType } from '../App'
+import { ProductType } from "../App";
 
+type ProductProps = {
+  product: ProductType | undefined;
+};
 
-
-const ProductCard = (product:ProductType) => {
-    const [Product, SetProduct] = useState<ProductType>(product)
+const ProductCard = ({ product }: ProductProps) => {
   return (
-    <div>
-        {Product.name}
-        {Product.id}
-        {Product.price}
-        {Product.image}
-        {Product.category}
+    <div className="product-card">
+      <div className="product-info">
+        <img
+          className="product-image"
+          src={product?.image}
+          alt="product image"
+        />
+        <div className="product-details">
+          <p>{product?.name}</p>
+          <p>{product?.id}</p>
+          <p>{product?.price}</p>
+          <p>{product?.category}</p>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;
