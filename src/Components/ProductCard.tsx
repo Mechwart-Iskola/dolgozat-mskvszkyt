@@ -14,9 +14,9 @@ const ProductCard = ({ product }: ProductProps) => {
           alt="product image"
         />
         <div className="product-details">
-          <p>{product?.name}</p>
           <p>{product?.id}</p>
-          <p>{product?.price}</p>
+          <p>{product?.name}</p>
+          <p>{product?.price}$</p>
           <p>{product?.category}</p>
         </div>
       </div>

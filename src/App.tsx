@@ -28,19 +28,13 @@ function App() {
   }
 
   function SearchByName() {
-    if (Products.length == 0) {
-      SetWarningMSG("No products found");
-    } else {
-      Products.forEach((element) => {
-        if (element.name.toLowerCase().startsWith(SearchName.toLowerCase())) {
-          SetWarningMSG("");
-          SetSearchedProduct(element);
-          console.log("searched");
-          return;
-        }
-      });
-    }
-    SetWarningMSG("No product found with the given name.");
+    Products.forEach((element) => {
+      if (element.name.toLowerCase().startsWith(SearchName.toLowerCase())) {
+        SetWarningMSG("");
+        SetSearchedProduct(element);
+        console.log("searched");
+      }
+    });
   }
 
   async function ReadData() {
@@ -50,15 +44,15 @@ function App() {
   }
 
   return (
-    <div>
-      <input
-        className="search-section"
-        type="text"
-        onChange={ChangeSearchName}
-      />
+    <div className="search-section">
+      <input type="text" onChange={ChangeSearchName} />
       <button onClick={SearchByName}>Search</button>
       <h1>Product Information</h1>
-      <ProductCard product={SearchedProduct}></ProductCard>
+      {SearchedProduct ? (
+        <ProductCard product={SearchedProduct}></ProductCard>
+      ) : (
+        <></>
+      )}
       <p className="error">{WarningMSG}</p>
     </div>
   );
